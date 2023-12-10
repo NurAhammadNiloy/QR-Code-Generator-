@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<section class="result-container" id="result-container">
+    <h2 class="heading">QR Code Generated!</h2>
+
+    <div class="result-content">
+        <p class="data">Data: {{ user_data }}</p>
+        <img src="{{ qr_code_uri }}" alt="QR Code">
+        <button id="downloadButton" class="btn"> Download</button>
+    </div>
+
+    <script>
+        // JavaScript to handle download button click
+        document.getElementById('downloadButton').addEventListener('click', function() {
+            // Get the QR code image source
+            var qrCodeSrc = document.querySelector('.result-content img').src;
+
+            // Create an anchor element to trigger the download
+            var downloadLink = document.createElement('a');
+            downloadLink.href = qrCodeSrc;
+            downloadLink.download = 'qrcode.png';
+
+            // Append the anchor element to the document and simulate a click
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+
+            // Remove the anchor element
+            document.body.removeChild(downloadLink);
+        });
+    </script>
+</section>
+
+</body>
+</html>
